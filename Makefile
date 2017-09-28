@@ -1,17 +1,18 @@
-JFLAGS = -g -cp .:libs/*
+JFLAGS = -g -sourcepath proto -cp .:libs/*
 JC = javac
 
 all: Test.class
 
-Test.class: Test.java com/example/tutorial/AddressBookProtos.java
+Test.class: Test.java proto/com/example/tutorial/AddressBookProtos.java
 	$(JC) $(JFLAGS) $<
 
-com/example/tutorial/AddressBookProtos.java: addressbook.proto
-	docker run --rm -v ${PWD}:/home/proto snps/protoc --java_out=. addressbook.proto
+proto/com/example/tutorial/AddressBookProtos.java: addressbook.proto
+	mkdir proto
+	docker run --rm -v ${PWD}:/home/proto snps/protoc --java_out=proto addressbook.proto
 
 .PHONY: run
 run:
-	@java -cp .:libs/* Test
+	@java -cp .:libs/*:proto Test
 
 .PHONY: clean
 clean:
