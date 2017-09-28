@@ -1,3 +1,5 @@
 *.class
 
+proto/
+
 .bash_history
