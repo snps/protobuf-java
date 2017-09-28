@@ -17,4 +17,4 @@ run:
 .PHONY: clean
 clean:
 	$(RM) *.class
-	$(RM) -rf com
+	$(RM) -rf proto 
